@@ -4,15 +4,12 @@ import com.entity.MessageSender;
 import com.entity.WhatsappChat;
 import com.entity.WhatsappMessage;
 import com.exceptions.NotFoundException;
-import lombok.Data;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-@Data
-@Service
+
 public class ChatReader {
 
     private static final int TIME_PREFIX_LENGTH = 15;

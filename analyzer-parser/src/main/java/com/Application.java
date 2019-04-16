@@ -10,7 +10,6 @@ import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-
 public class Application {
 
     private static ChatReader reader = new ChatReader();

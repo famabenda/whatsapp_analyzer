@@ -20,11 +20,10 @@ public class WhatsappChat {
 
     @Override
     public String toString() {
-        String result = "";
-
+        StringBuilder builder = new StringBuilder();
         for (WhatsappMessage message : messages) {
-            result += message.toString() + "\n";
+            builder.append(message.toString() + "\n");
         }
-        return result;
+        return builder.toString();
     }
 }
