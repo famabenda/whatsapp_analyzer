@@ -1,9 +1,9 @@
 package com;
 
-
 import com.entity.WhatsappChat;
 import com.exceptions.NotFoundException;
 import com.service.ChatReader;
+import com.service.StatisticCalculator;
 import com.utlis.IOService;
 
 import javax.swing.*;
@@ -23,5 +23,9 @@ public class Application {
         List<String> strings = ioService.readWhatsappFile(selectedFile);
         WhatsappChat chat = reader.read(strings);
         System.out.println(chat.toString());
+
+        StatisticCalculator statisticCalculator = new StatisticCalculator(chat);
+        System.out.println("MsgCount: " + statisticCalculator.calcMessageCount());
+        System.out.println("MsgProportion " + statisticCalculator.calcMessageProportion().toString());
     }
 }

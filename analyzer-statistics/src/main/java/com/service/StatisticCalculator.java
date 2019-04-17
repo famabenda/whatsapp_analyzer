@@ -1,5 +1,6 @@
 package com.service;
 
+import com.entity.CharCountProportion;
 import com.entity.MessageProportion;
 import com.entity.WhatsappChat;
 import com.entity.WhatsappMessage;
@@ -26,4 +27,14 @@ public class StatisticCalculator {
         }
         return proportion;
     }
+
+    public CharCountProportion calcCharProportion() {
+        CharCountProportion proportion = new CharCountProportion();
+        List<WhatsappMessage> whatsappMessages = chat.getMessages();
+        for (WhatsappMessage message : whatsappMessages) {
+            proportion.countChar(message);
+        }
+        return proportion;
+    }
+
 }

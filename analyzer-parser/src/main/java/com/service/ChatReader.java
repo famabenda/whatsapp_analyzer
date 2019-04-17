@@ -18,14 +18,26 @@ public class ChatReader {
 
     public WhatsappChat read(List<String> file) throws NotFoundException {
         WhatsappChat chat = new WhatsappChat();
+        String msg = "";
+        MessageSender messageSender = null;
+        LocalDateTime time = null;
         for (String line : file) {
             if (isValidMessage(line)) {
-                MessageSender messageSender = parseMessageSender(line);
-                LocalDateTime time = parseMessageTime(line);
-                String message = parseMessage(line);
-                chat.addMessage(new WhatsappMessage(messageSender, time, message));
+                if (startsWithDateTime(line)) {
+                    if (!msg.equals("")) {
+                        chat.addMessage(new WhatsappMessage(messageSender, time, msg));
+                        msg = parseMessage(line);
+                        messageSender = parseMessageSender(line);
+                        time = parseMessageTime(line);
+                    } else {
+                        msg = parseMessage(line);
+                        messageSender = parseMessageSender(line);
+                        time = parseMessageTime(line);
+                    }
+                } else msg += line;
             }
         }
+        chat.addMessage(new WhatsappMessage(messageSender, time, msg));
         return chat;
     }
 
@@ -59,6 +71,15 @@ public class ChatReader {
             parseMessageBegin(line);
         } catch (NotFoundException nfe) {
             if (line.contains("Ende-zu-Ende-Verschlüsselung")) return false;
+        }
+        return true;
+    }
+
+    private boolean startsWithDateTime(String line) {
+        try {
+            parseMessageTime(line);
+        } catch (Exception e) {
+            return false;
         }
         return true;
     }

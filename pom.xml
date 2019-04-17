@@ -12,6 +12,7 @@
 
 
     <modules>
+        <module>analyzer</module>
         <module>analyzer-statistics</module>
         <module>analyzer-parser</module>
     </modules>
